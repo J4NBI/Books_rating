@@ -1,3 +1,5 @@
+// BOOK RATING JAN BIHL v.1
+
 import pg from "pg";
 import express from "express";
 import bodyParser from "body-parser";
