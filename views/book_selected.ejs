@@ -1,0 +1,116 @@
+<%- include('partials/header.ejs'); -%>
+<div class="flex justify-center items-center  w-[90%] mx-auto">
+  <form class="flex gap-4 items-center border-2 border-yellow-300 shadow-lg p-8 rounded-md bg-orange-700 bg-opacity-35 flex-col md:flex-row" action="/postBook" method="GET">
+    <img class="w-[50%] md:w-[100%] shadow-lg" src="<%= imgSrc%>" alt="">
+    <div class="flex flex-col gap-4">
+      <div class="stars">
+        <i id="0" class="fa-regular fa-star star s1 cursor-pointer"></i>
+        <i id="f0" class="fa-solid fa-star star-full star1-full hidden"></i>
+        <i id="1" class="fa-regular fa-star star s2 cursor-pointer"></i>
+        <i id="f1" class="fa-solid fa-star star-full star2-full hidden"></i>
+        <i id="2" class="fa-regular fa-star star s3 cursor-pointer"></i>
+        <i id="f2" class="fa-solid fa-star star-full star3-full hidden"></i>
+        <i id="3" class="fa-regular fa-star star s4 cursor-pointer"></i>
+        <i id="f3" class="fa-solid fa-star star-full star4-full hidden"></i>
+        <i id="4" class="fa-regular fa-star star s5 cursor-pointer"></i>
+        <i id="f4" class="fa-solid fa-star star-full star5-full hidden"></i>
+      </div>
+      <input type="hidden" name="starRate" id="starRate" value="">
+      <input class="rounded-sm h-8 px-4 focus:outline-yellow-200" type="text" name="name" placeholder="Your name">
+      <textarea class="w-[300px rounded-sm px-4 py-4 focus:outline-yellow-200" name="text" id="text" rows="10" placeholder="write something about the book"></textarea>
+      <button class="mt-4 border-2 text-sm  hover:text-white hover:bg-slate-700 active:scale-90 border-yellow-200 px-2 py-2 rounded-lg" type="submit">Submit</button>
+    </div>
+    
+  </form>
+</div>
+
+<script>
+  const stars = document.querySelectorAll('.star');
+  const starsFull = document.querySelectorAll('.star-full');
+  const starRate = document.getElementById('starRate');
+  
+  stars.forEach((star) => {
+    star.addEventListener('click', (e) => {
+      switch (e.target.id){
+        case '0':
+          e.target.classList.add('hidden');
+          id = e.target.id;
+          starsFull[id].classList.remove('hidden');
+          break;
+        case '1':
+          e.target.classList.toggle('hidden');
+          id = e.target.id;
+          stars[id -1].classList.add('hidden');
+          starsFull[id].classList.remove('hidden');
+          starsFull[id-1].classList.remove('hidden');
+          break;
+        case '2':
+          e.target.classList.add('hidden');
+          id = e.target.id;
+          stars[id -1].classList.add('hidden');
+          stars[id -2].classList.add('hidden');
+          starsFull[id].classList.remove('hidden');
+          starsFull[id-1].classList.remove('hidden');
+          starsFull[id-2].classList.remove('hidden');
+          break;
+        case '3':
+          e.target.classList.add('hidden');
+          id = e.target.id;
+          stars[id -1].classList.add('hidden');
+          stars[id -2].classList.add('hidden');
+          stars[id -3].classList.add('hidden');
+          starsFull[id].classList.remove('hidden');
+          starsFull[id-1].classList.remove('hidden');
+          starsFull[id-2].classList.remove('hidden');
+          starsFull[id-3].classList.remove('hidden');
+          break;
+        case '4':
+          e.target.classList.add('hidden');
+          id = e.target.id;
+          stars[id -1].classList.add('hidden');
+          stars[id -2].classList.add('hidden');
+          stars[id -3].classList.add('hidden');
+          stars[id -4].classList.add('hidden');
+          starsFull[id].classList.remove('hidden');
+          starsFull[id-1].classList.remove('hidden');
+          starsFull[id-2].classList.remove('hidden');
+          starsFull[id-3].classList.remove('hidden');
+          starsFull[id-4].classList.remove('hidden');
+          break;
+
+      }
+      let countedStars = countStars();
+      starRate.value = countedStars;
+
+       
+    });
+  })
+
+  
+
+  starsFull.forEach((starFull) => {
+    starFull.addEventListener('click', (e) => {
+      for (let i = 0; i <= 4; i++){
+        stars[i].classList.remove('hidden');
+        starsFull[i].classList.add('hidden');
+      }
+      let countedStars = countStars();
+      starRate.value = countedStars;
+        
+    });
+  })
+
+  function countStars() {
+    let count = 0;
+    starsFull.forEach((e)=>{
+      if(!e.classList.contains('hidden')){
+        count++;
+      }
+      
+    })
+    return count;
+  };
+  
+</script>
+
+<%- include('partials/footer.ejs'); -%>

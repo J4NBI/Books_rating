@@ -1,0 +1,29 @@
+<%- include('partials/header.ejs'); -%>
+
+
+
+  <div class="container mx-auto grid md:grid-cols-2 lg:grid-cols-4 sm:grid-cols-2 place-items-center">
+    
+      <% docs.forEach(doc => { %>
+        <% if(doc.cover_edition_key) { %>
+          <div class="overflow-y-auto min-w-[200px] max-w-[300px] transition-all duration-200 hover:scale-110
+          h-[400px] m-6 border-2 p-4 rounded-lg book-content flex flex-col justify-center items-center shadow-md border-yellow-300 border-opacity-30">
+          <h2 class="mb-2 w-[100%] text-yellow-200 text-center"><%= doc.title %></h2>
+            <p class="text-center text-sm"><%= doc.author_name %></p>
+            <img class="w-[100px] mt-2" src="https://covers.openlibrary.org/b/olid/<%= doc.cover_edition_key%>-M.jpg" alt="">
+            <form action="/bookSelected" method="POST">
+              <input type="hidden" name="title" value="<%= doc.title %>">
+              <input type="hidden" name="imgSrc" value="https://covers.openlibrary.org/b/olid/<%= doc.cover_edition_key%>-M.jpg">
+              <input type="hidden" name="author" value="<%= doc.author_name %>">
+              <button class="mt-4 border-2 text-sm  hover:text-white active:scale-90 border-yellow-200 px-2 py-2 rounded-lg" type="submit">Choose Book</button>
+            </form>
+          </div>
+        <% } %>
+      <% }) %>
+    
+  </div>
+  
+  
+  
+
+<%- include('partials/footer.ejs'); -%>

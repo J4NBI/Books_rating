@@ -1,0 +1,12 @@
+
+.container {
+  width: 80%;
+}
+
+input[type="radio"]:checked {
+  accent-color: #fbbf24; /* Tailwind's yellow-400 */
+}
+
+.hidden {
+  display: none;
+}

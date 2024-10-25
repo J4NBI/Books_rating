@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+          theme: {
+              extend: {
+                  fontFamily: {
+                      "roboto": ["Roboto", "sans-serif"],
+                  },
+                  colors: {
+                      "brand-blue": "#04c2c1",
+                      "brand-red": "hsl(9,58%,52%)",
+                  },
+              },
+          },
+      };
+    </script>
+  
+  <title>Book Rating</title>
+</head>
+<body class="bg-orange-400">
+
+  <div class="mx-auto text-center p-4 bg-yellow-300 shadow-md">
+    <header>
+      
+      <h1 class="text-3xl"><i class="fa-solid fa-book"></i> BOOK RATING</h1>
+    </header>
+    <nav>
+      <div class="main-nav">
+        <ul class="mx-auto flex gap-4 justify-between w-[40%] items-center pt-4">
+          <li><a class="hover:text-white transition duration-300" href="/">Home</a></li>
+          <li><a class="hover:text-white transition duration-300" href="/books_rated">Books Rated</a></li>
+          <li><a class="hover:text-white transition duration-300" href="/Links">Links</a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+
+  <div class="container mx-auto text-center flex md:flex-row gap-4 justify-center items-center p-8 ">
+    <form class="flex md:flex-row gap-8 items-center flex-col" action="/get" method="POST">
+      <label class="text-yellow-200 uppercase" for="isbn">Search for Book</label>
+      <input class="rounded-sm h-8 px-4 focus:outline-yellow-200" type="text" name="title">
+      <div class="flex flex-col justify-start">
+        <div class="flex justify-start items-center">
+          <input class="mx-2" id="radio_title" value="title" type="radio" name="searchOption" checked>
+          <label class="" for="radio_title">Search for Title</label>
+        </div>
+        <div class="flex justify-start items-center">
+          <input class="mx-2" id="radio_author" value="author" type="radio" name="searchOption">
+          <label class="" for="radio_author">Search for Author</label>
+        </div>
+      </div>
+      <button class="border-2  hover:text-white active:scale-90 border-yellow-200 px-4 py-2 rounded-lg" type="submit"><i class="fas fa-search"></i>  Search</button>
+    </form>
+  </div>
