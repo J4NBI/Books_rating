@@ -1,16 +1,26 @@
-// BOOK RATING JAN BIHL v.1
+// BOOK RATING JAN BIHL v.2
 
 import pg from "pg";
 import express from "express";
 import bodyParser from "body-parser";
 import axios from "axios";
+import env from "dotenv";
 // import "./styles/style.css";
 
 const app = express();
 const port = 3000;
+env.config();
 
+const db = new pg.Client({
+  user: process.env.PG_USER,
+  host: process.env.PG_HOST,
+  database: process.env.PG_DATABASE,
+  password: process.env.PG_PASSWORD,
+  port: process.env.PG_PORT,
+});
+db.connect();
 
-
+let entries;
 // BodyParser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -20,10 +30,14 @@ app.use(express.static("public"));
 
 
 // Home ROUTE
-app.get("/", (req, res) => {
+app.get("/", async (req, res) => {
   let docs = [];
+
+  const response = await db.query('Select * FROM booksrated');
+  entries = response.rows;
   res.render("index.ejs", {
-    docs: docs
+    docs: docs,
+    entries: entries
   });
 });
 
@@ -50,7 +64,8 @@ app.post("/get", async (req, res) => {
         });
         docs = response.data.docs;
         res.render("index.ejs", {
-          docs: docs
+          docs: docs,
+          entries: entries
        
         });
       } catch (error) {
@@ -108,6 +123,27 @@ app.post("/bookSelected", async (req, res) => {
     author: author
   })
 });
+
+app.post("/postbook", async (req, res) => {
+  const name = req.body.name;
+  const text = req.body.text;
+  const starRate = parseInt(req.body.starRate);
+  const date = new Date();
+  const img = req.body.imgSrc;
+  const title = req.body.title;
+  console.log(title);
+  try {
+    const result = await db.query(
+      "INSERT INTO booksrated (name, text, rate, date, img, title) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *",
+      [name, text, starRate, date , img, title]
+    );
+    // console.log(result);
+    res.redirect("/");
+  } catch (err){
+    console.error(err);
+  }
+
+})
 
 // Start the server
 app.listen(port, () => {

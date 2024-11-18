@@ -1,7 +1,10 @@
 <%- include('partials/header.ejs'); -%>
 <div class="flex justify-center items-center  w-[90%] mx-auto">
-  <form class="flex gap-4 items-center border-2 border-yellow-300 shadow-lg p-8 rounded-md bg-orange-700 bg-opacity-35 flex-col md:flex-row" action="/postBook" method="GET">
-    <img class="w-[50%] md:w-[100%] shadow-lg" src="<%= imgSrc%>" alt="">
+  <form class="flex gap-4 items-center border-2 border-yellow-300 shadow-lg p-8 rounded-md bg-orange-700 bg-opacity-35 flex-col md:flex-row" action="/postBook" method="POST">
+    <div>
+      <h2 class=" text-2xl mb-4"><%= title %></h2>
+      <img class="w-[50%] md:w-[100%] shadow-lg" src="<%= imgSrc%>" alt="">
+    </div>
     <div class="flex flex-col gap-4">
       <div class="stars">
         <i id="0" class="fa-regular fa-star star s1 cursor-pointer"></i>
@@ -15,10 +18,12 @@
         <i id="4" class="fa-regular fa-star star s5 cursor-pointer"></i>
         <i id="f4" class="fa-solid fa-star star-full star5-full hidden"></i>
       </div>
+      <input type="hidden" name="title" value="<%= title %>">
+      <input type="hidden" name="imgSrc" value="<%= imgSrc%>">
       <input type="hidden" name="starRate" id="starRate" value="">
       <input class="rounded-sm h-8 px-4 focus:outline-yellow-200" type="text" name="name" placeholder="Your name">
       <textarea class="w-[300px rounded-sm px-4 py-4 focus:outline-yellow-200" name="text" id="text" rows="10" placeholder="write something about the book"></textarea>
-      <button class="mt-4 border-2 text-sm  hover:text-white hover:bg-slate-700 active:scale-90 border-yellow-200 px-2 py-2 rounded-lg" type="submit">Submit</button>
+      <button class="mt-4 border text-sm  hover:text-white hover:bg-slate-700 active:scale-90 border-yellow-200 px-2 py-2 rounded-lg" type="submit">Submit</button>
     </div>
     
   </form>
@@ -36,6 +41,7 @@
           e.target.classList.add('hidden');
           id = e.target.id;
           starsFull[id].classList.remove('hidden');
+          starRate.value = 0;
           break;
         case '1':
           e.target.classList.toggle('hidden');
@@ -43,6 +49,7 @@
           stars[id -1].classList.add('hidden');
           starsFull[id].classList.remove('hidden');
           starsFull[id-1].classList.remove('hidden');
+          starRate.value = 1;
           break;
         case '2':
           e.target.classList.add('hidden');
@@ -52,6 +59,7 @@
           starsFull[id].classList.remove('hidden');
           starsFull[id-1].classList.remove('hidden');
           starsFull[id-2].classList.remove('hidden');
+          starRate.value = 2;
           break;
         case '3':
           e.target.classList.add('hidden');
@@ -63,6 +71,7 @@
           starsFull[id-1].classList.remove('hidden');
           starsFull[id-2].classList.remove('hidden');
           starsFull[id-3].classList.remove('hidden');
+          starRate.value = 3;
           break;
         case '4':
           e.target.classList.add('hidden');
@@ -76,6 +85,7 @@
           starsFull[id-2].classList.remove('hidden');
           starsFull[id-3].classList.remove('hidden');
           starsFull[id-4].classList.remove('hidden');
+          starRate.value = 4;
           break;
 
       }

@@ -2,8 +2,8 @@
 
 
 
-  <div class="container mx-auto grid md:grid-cols-2 lg:grid-cols-4 sm:grid-cols-2 place-items-center">
-    
+  
+  <div class="flex">
       <% docs.forEach(doc => { %>
         <% if(doc.cover_edition_key) { %>
           <div class="overflow-y-auto min-w-[200px] max-w-[300px] transition-all duration-200 hover:scale-110
@@ -21,6 +21,22 @@
         <% } %>
       <% }) %>
     
+  </div>
+  <hr>
+  <div class="container flex flex-wrap items-center justify-center mx-auto">
+    
+      <% entries.forEach( e => { %>
+        <div class="overflow-y-auto min-w-[400px] max-w-[300px] transition-all duration-200 hover:scale-110
+        h-[400px] m-6 border-2 p-4 rounded-lg book-content flex flex-col justify-center items-center shadow-md border-yellow-300 border-opacity-30">
+        <h2 class="text-2xl mb-2 w-[100%] text-yellow-200 text-center"><%= e.title %></h2>
+        <img class="w-[100px] mt-2" src="<%= e.img %>" alt="">
+        <h3 class="mt-2 text-sm">Von: <%= e.name %></h3>
+          <p class="text-center text-sm"><%= e.text %></p>
+          <input type="hidden" value="<%= e.id %>">
+        </div>
+      <%})%>
+
+   
   </div>
   
   
